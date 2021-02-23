@@ -107,7 +107,7 @@ class Tid extends React.Component {
         return(
             <div className={'Ur'}>
                 <div className={'tid'}>
-                    <h1>{this.state.minutes}:{this.state.seconds}</h1>
+                    <h1>{this.state.minutes}:{this.state.seconds}:{this.state.milliseconds}</h1>
                 </div>
                 <div className={'control'}>
                     <button className={'start'} onClick={this.startTimer}>Start</button>
