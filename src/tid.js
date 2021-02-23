@@ -16,6 +16,7 @@ class Tid extends React.Component {
         seconds: "00",
         milliseconds: "00",
         uniqueId: "",
+        divName: "",
     };
 
     startTimer = () => {
@@ -57,7 +58,7 @@ class Tid extends React.Component {
             this.setState({running: 0})
             clearInterval(this.state.tInterval);
         } else {
-            //this.startTimer();
+            this.startTimer();
         }
     }
 
@@ -79,14 +80,6 @@ class Tid extends React.Component {
             this.startTimer();
         } else if (e.keyCode===109) {
             this.resetTimer();
-        } else if (e.keyCode===97) {
-            document.getElementById("pause1").click();
-        } else if (e.keyCode===98) {
-            document.getElementById("pause2").click();
-        } else if (e.keyCode===99) {
-            document.getElementById("pause3").click();
-        } else if (e.keyCode===100) {
-            document.getElementById("pause4").click();
         }
     }
 
@@ -96,6 +89,7 @@ class Tid extends React.Component {
         }, 50);
         this.setState({uniqueId: _uniqueId()});
         document.addEventListener('keydown',this.keydownHandler);
+        this.populateNames();
     }
 
     componentWillUnmount() {
@@ -103,16 +97,34 @@ class Tid extends React.Component {
         document.removeEventListener('keydown',this.keydownHandler);
     }
 
+
+
+    populateNames() {
+        let nu = _uniqueId();
+        if (nu === "2" ) {
+            this.setState({divName:"Emil og Anna"});
+        } else if (nu === "4") {
+            this.setState({divName:"Sofie og Sebastian"});
+        } else if (nu === "6") {
+            this.setState({divName:"Victoria og Rasmus"});
+        } else if (nu === "8") {
+            this.setState({divName:"Klara og Emil"});
+        }
+    }
+
     render() {
         return(
-            <div className={'Ur'}>
-                <div className={'tid'}>
-                    <h1>{this.state.minutes}:{this.state.seconds}:{this.state.milliseconds}</h1>
-                </div>
-                <div className={'control'}>
-                    <button className={'start'} onClick={this.startTimer}>Start</button>
-                    <button className={'pause'} id={'pause'+this.state.uniqueId} onClick={this.pauseTimer}>Pause</button>
-                    <button className={'reset'} onClick={this.resetTimer}>Nulstil</button>
+            <div className={'watches'} id={'watch-'+ this.state.uniqueId}>
+                <h1>{this.state.divName}</h1>
+                <div className={'Ur'}>
+                    <div className={'tid'}>
+                        <h1>{this.state.minutes}:{this.state.seconds}:{this.state.milliseconds}</h1>
+                    </div>
+                    <div className={'control'}>
+                        <button className={'start'} onClick={this.startTimer}>Start</button>
+                        <button className={'pause'} id={'pause'+this.state.uniqueId} onClick={this.pauseTimer}>Pause</button>
+                        <button className={'reset'} onClick={this.resetTimer}>Nulstil</button>
+                    </div>
                 </div>
             </div>
         )

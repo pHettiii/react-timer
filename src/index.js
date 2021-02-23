@@ -25,25 +25,41 @@ class ClockFour extends Tid {
     }
 }
 
+class Keys extends React.Component {
+    keydownHandler = (e) => {
+        if (e.keyCode===97) {
+            document.getElementById("pause1").click();
+            } else if (e.keyCode===98) {
+            document.getElementById("pause3").click();
+            } else if (e.keyCode===99) {
+                document.getElementById("pause5").click();
+            } else if (e.keyCode===100) {
+                document.getElementById("pause7").click();
+            }
+        }
+        componentDidMount() {
+            document.addEventListener('keydown',this.keydownHandler);
+        }
+        componentWillUnmount() {
+            document.removeEventListener('keydown',this.keydownHandler);
+        }
+        render() {
+        return(
+            <div>
+                <p/>
+            </div>
+        );
+    }
+}
+
 ReactDOM.render(
     <React.StrictMode>
         <div className={'holder'}>
-            <div className={'watches'}>
-                <h1>Emil og Anna</h1>
-                <ClockOne />
-            </div>
-            <div className={'watches'}>
-                <h1>Sofie og Sebastian</h1>
-                <ClockTwo />
-            </div>
-            <div className={'watches'}>
-                <h1>Victoria og Rasmus</h1>
-                <ClockThree />
-            </div>
-            <div className={'watches'}>
-                <h1>Klara og Emil</h1>
-                <ClockFour />
-            </div>
+            <ClockOne />
+            <ClockTwo />
+            <ClockThree />
+            <ClockFour />
+            <Keys />
         </div>
     </React.StrictMode>,
     document.getElementById('root')
