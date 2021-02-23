@@ -2,8 +2,7 @@ main {
   align-content: center;
   box-sizing: border-box;
   display: grid;
-  font-family: 'SF Pro Text', 'SF Pro Icons', 'Helvetica Neue', 'Helvetica',
-    'Arial', sans-serif;
+  font-family: 'Veteran Typewriter', sans-serif;
   hyphens: auto;
   line-height: 1.65;
   margin: 0 auto;
@@ -13,13 +12,16 @@ main {
   text-align: center;
 }
 h1 {
-  font-size: 45px;
+  font-size: 2em;
+  font-family: 'Veteran Typewriter', sans-serif;
 }
 h2 {
   margin-top: 1.5em;
+  font-family: 'Veteran Typewriter', sans-serif;
 }
 p {
-  font-size: 16px;
+  font-size: 1em;
+  font-family: 'Veteran Typewriter', sans-serif;
 }
 a {
   border-bottom: 1px solid white;
@@ -30,17 +32,6 @@ a {
 }
 a:hover {
   border-bottom: 1px solid #0076ff;
-}
-code,
-pre {
-  color: #d400ff;
-  font-family: Menlo, Monaco, Lucida Console, Liberation Mono, DejaVu Sans Mono,
-    Bitstream Vera Sans Mono, Courier New, monospace, serif;
-  font-size: 0.92em;
-}
-code:before,
-code:after {
-  content: '\`';
 }
 
 .App {
@@ -57,13 +48,44 @@ code:after {
     animation: App-logo-spin infinite 20s linear;
   }
 }
-.watches {
+.holder {
   display: flex;
 }
+
+.watches {
+  flex-direction: column;
+  padding: 1em;
+  border-radius: 25px;
+  border: 2px solid black;
+  width: 100vh;
+  margin: 1em;
+  text-align: center;
+
+}
+
 .Ur {
   display: flex;
   flex-direction: column;
-  padding: 1em;
+
+}
+
+button{
+  display:inline-block;
+  padding:0.35em 1.2em;
+  border:0.1em solid #bcbcbc;
+  margin:0 0.3em 0.3em 0;
+  border-radius:0.12em;
+  box-sizing: border-box;
+  text-decoration:none;
+  font-family:'Veteran Typewriter',sans-serif;
+  font-weight:300;
+  color: #000000;
+  text-align:center;
+  transition: all 0.2s;
+}
+button:hover{
+  color:#000000;
+  background-color: #ffffff;
 }
 
 .App-header {
@@ -80,6 +102,9 @@ code:after {
 .App-link {
   color: #61dafb;
 }
+html {
+  background: #009933;
+}
 
 @keyframes App-logo-spin {
   from {
@@ -89,4 +114,3 @@ code:after {
     transform: rotate(360deg);
   }
 }
-

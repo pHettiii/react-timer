@@ -4,29 +4,49 @@ import './index.css';
 import Tid from "./tid.js";
 import * as serviceWorker from './serviceWorker';
 
-function ClockOne() {
-    return new Tid(1);
+class ClockOne extends Tid {
+    render() {
+        return super.render();
+    }
 }
-function ClockTwo() {
-    return new Tid(2);
+class ClockTwo extends Tid {
+    render() {
+        return super.render();
+    }
 }
-function ClockThree() {
-    return new Tid(3);
+class ClockThree extends Tid {
+    render() {
+        return super.render();
+    }
 }
-function ClockFour() {
-    return new Tid(4);
+class ClockFour extends Tid {
+    render() {
+        return super.render();
+    }
 }
 
 ReactDOM.render(
-  <React.StrictMode>
-      <div className={'watches'}>
-      <ClockOne />
-      <ClockTwo />
-      <ClockThree />
-      <ClockFour />
-      </div>
-  </React.StrictMode>,
-  document.getElementById('root')
+    <React.StrictMode>
+        <div className={'holder'}>
+            <div className={'watches'}>
+                <h1>Emil og Anna</h1>
+                <ClockOne />
+            </div>
+            <div className={'watches'}>
+                <h1>Sofie og Sebastian</h1>
+                <ClockTwo />
+            </div>
+            <div className={'watches'}>
+                <h1>Victoria og Rasmus</h1>
+                <ClockThree />
+            </div>
+            <div className={'watches'}>
+                <h1>Klara og Emil</h1>
+                <ClockFour />
+            </div>
+        </div>
+    </React.StrictMode>,
+    document.getElementById('root')
 );
 
 // If you want your app to work offline and load faster, you can change

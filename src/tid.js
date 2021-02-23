@@ -1,5 +1,6 @@
 import React from "react";
 import './App.css';
+import _uniqueId from 'lodash/uniqueId';
 
 class Tid extends React.Component {
     state = {
@@ -14,6 +15,7 @@ class Tid extends React.Component {
         minutes: "00",
         seconds: "00",
         milliseconds: "00",
+        uniqueId: "",
     };
 
     startTimer = () => {
@@ -55,7 +57,7 @@ class Tid extends React.Component {
             this.setState({running: 0})
             clearInterval(this.state.tInterval);
         } else {
-            this.startTimer();
+            //this.startTimer();
         }
     }
 
@@ -70,32 +72,47 @@ class Tid extends React.Component {
         this.setState({milliseconds: "00"})
     }
 
+    keydownHandler = (e) => {
+        if(e.keyCode===111) {
+            this.pauseTimer();
+        } else if (e.keyCode===107) {
+            this.startTimer();
+        } else if (e.keyCode===109) {
+            this.resetTimer();
+        } else if (e.keyCode===97) {
+            document.getElementById("pause1").click();
+        } else if (e.keyCode===98) {
+            document.getElementById("pause2").click();
+        } else if (e.keyCode===99) {
+            document.getElementById("pause3").click();
+        } else if (e.keyCode===100) {
+            document.getElementById("pause4").click();
+        }
+    }
+
     componentDidMount() {
         this.timeout = setTimeout(() => {
             this.setState({running:0});
         }, 50);
+        this.setState({uniqueId: _uniqueId()});
+        document.addEventListener('keydown',this.keydownHandler);
     }
 
     componentWillUnmount() {
         clearTimeout(this.startTimer);
+        document.removeEventListener('keydown',this.keydownHandler);
     }
 
     render() {
         return(
             <div className={'Ur'}>
                 <div className={'tid'}>
-                    <h1>{this.state.minutes}:{this.state.seconds}:{this.state.milliseconds}</h1>
+                    <h1>{this.state.minutes}:{this.state.seconds}</h1>
                 </div>
                 <div className={'control'}>
-                    <button className={'start'} onClick={this.startTimer}>start</button>
-                    <button className={'pause'} onClick={this.pauseTimer}>Pause</button>
+                    <button className={'start'} onClick={this.startTimer}>Start</button>
+                    <button className={'pause'} id={'pause'+this.state.uniqueId} onClick={this.pauseTimer}>Pause</button>
                     <button className={'reset'} onClick={this.resetTimer}>Nulstil</button>
-                </div>
-                <div className={'Debug'}>
-                    <p>Debug yo</p>
-                    <h2>Saved: {this.state.savedTime}</h2>
-                    <h2>Running: {this.state.running}</h2>
-                    <h2>Difference: {this.state.difference}</h2>
                 </div>
             </div>
         )
