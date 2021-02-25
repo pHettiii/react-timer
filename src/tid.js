@@ -128,11 +128,11 @@ class Tid extends React.Component {
 
     render() {
         return(
-            <div className={'watches'} id={'watch-'+ this.state.uniqueId}>
-                <h1>{this.state.divName}</h1>
+            <div className={'watches'} id={'watch-'+ this.state.uniqueId} style={{borderColor: this.state.paused ? 'red' : 'black'}}>
+                <h1 style={{color: this.state.paused ? 'red' : 'black'}}>{this.state.divName}</h1>
                 <div className={'Ur'}>
                     <div className={'tid'}>
-                        <h1>{this.state.minutes}:{this.state.seconds}:{this.state.milliseconds}</h1>
+                        <h1 style={{color: this.state.paused ? 'red' : 'black'}}> {this.state.minutes}:{this.state.seconds}:{this.state.milliseconds}</h1>
                     </div>
                     <div className={'control'}>
                         <button className={'start'} onClick={this.startTimer}>Start</button>
