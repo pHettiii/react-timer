@@ -17,25 +17,28 @@ class Tid extends React.Component {
         milliseconds: "00",
         uniqueId: "",
         divName: "",
+        tidData: [],
     };
 
     startTimer = () => {
-        if(!this.state.running){
+        if(!this.state.running && !this.state.paused){
             this.setState({startTime:new Date().getTime()});
             this.setState({tInterval: setInterval(this.getShowTime, 1)});
             // change 1 to 1000 above to run script every second instead of every millisecond.
             // one other change will be needed in the getShowTime() function below for this to work. see comment there.
             this.setState({paused: 0});
             this.setState({running: 1});
+        } else if (!this.state.running) {
+            this.continueTimer()
         }
     }
 
     getShowTime = () => {
         this.setState({updatedTime: new Date().getTime()});
         if (this.state.savedTime){
-            this.setState({difference: (this.state.updatedTime - this.state.startTime) + this.state.savedTime});
+            this.setState({difference: this.state.updatedTime - this.state.startTime});/*+ this.state.savedTime}*/
         } else {
-            this.setState({difference:  this.state.updatedTime - this.state.startTime});
+            this.setState({difference: this.state.updatedTime - this.state.startTime});
         }
         // var days = Math.floor(difference / (1000 * 60 * 60 * 24));
         this.setState({hours: Math.floor((this.state.difference % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60))});
@@ -56,10 +59,20 @@ class Tid extends React.Component {
             this.setState({savedTime: this.state.difference});
             this.setState({paused: 1})
             this.setState({running: 0})
+            this.setState({tidData: [...this.state.tidData, this.state.minutes + ":" + this.state.seconds + ":" + this.state.milliseconds] });
             clearInterval(this.state.tInterval);
         } else {
-            this.startTimer();
+            //this.startTimer();
+            this.continueTimer();
         }
+    }
+
+    continueTimer = () => {
+        this.setState({tInterval: setInterval(this.getShowTime, 1)});
+        // change 1 to 1000 above to run script every second instead of every millisecond.
+        // one other change will be needed in the getShowTime() function below for this to work. see comment there.
+        this.setState({paused: 0});
+        this.setState({running: 0});
     }
 
     resetTimer = () => {
@@ -71,6 +84,7 @@ class Tid extends React.Component {
         this.setState({minutes: "00"})
         this.setState({seconds: "00"})
         this.setState({milliseconds: "00"})
+        this.setState({tidData: []})
     }
 
     keydownHandler = (e) => {
@@ -122,8 +136,17 @@ class Tid extends React.Component {
                     </div>
                     <div className={'control'}>
                         <button className={'start'} onClick={this.startTimer}>Start</button>
-                        <button className={'pause'} id={'pause'+this.state.uniqueId} onClick={this.pauseTimer}>Pause</button>
+                        <button className={'pause'} id={'pause'+this.state.uniqueId} onClick={this.pauseTimer}>Stop</button>
                         <button className={'reset'} onClick={this.resetTimer}>Nulstil</button>
+                    </div>
+                    <div className={'Times'}>
+                        <div>
+                            <ul>
+                                {this.state.tidData.map(item => (
+                                    <li key={item+this.state.uniqueId}>{item+this.state.uniqueId}</li>
+                                ))}
+                            </ul>
+                        </div>
                     </div>
                 </div>
             </div>
