@@ -18,6 +18,7 @@ class Tid extends React.Component {
         uniqueId: "",
         divName: "",
         tidData: [],
+        isDebug: 0,
     };
 
     startTimer = () => {
@@ -72,7 +73,7 @@ class Tid extends React.Component {
         // change 1 to 1000 above to run script every second instead of every millisecond.
         // one other change will be needed in the getShowTime() function below for this to work. see comment there.
         this.setState({paused: 0});
-        this.setState({running: 0});
+        this.setState({running: 1});
     }
 
     resetTimer = () => {
@@ -111,8 +112,6 @@ class Tid extends React.Component {
         document.removeEventListener('keydown',this.keydownHandler);
     }
 
-
-
     populateNames() {
         let nu = _uniqueId();
         if (nu === "2" ) {
@@ -126,7 +125,12 @@ class Tid extends React.Component {
         }
     }
 
-    render() {
+render() {
+        const isDebug = this.state.isDebug;
+        let debugDiv;
+        if (isDebug) {
+            debugDiv = <div style={{color: 'white'}}><h2>{this.state.running}</h2>:<h2>{this.state.paused}</h2></div>
+        }
         return(
             <div className={'watches'} id={'watch-'+ this.state.uniqueId} style={{borderColor: this.state.paused ? 'red' : 'black'}}>
                 <h1 style={{color: this.state.paused ? 'red' : 'black'}}>{this.state.divName}</h1>
@@ -139,6 +143,7 @@ class Tid extends React.Component {
                         <button className={'pause'} id={'pause'+this.state.uniqueId} onClick={this.pauseTimer}>Stop</button>
                         <button className={'reset'} onClick={this.resetTimer}>Nulstil</button>
                     </div>
+                    {debugDiv}
                     <div className={'Times'}>
                         <div>
                             <ul>
